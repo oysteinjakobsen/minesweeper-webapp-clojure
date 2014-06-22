@@ -1,0 +1,66 @@
+.square {
+	width: 45px;
+	height: 45px;
+	text-align: center;
+	line-height: 45px;
+	font-weight: bold;
+	font-family: arial;	
+    display: inline-block;
+    background-image: url("/images/untouched.png");
+}
+
+.m0 {
+	text-indent: -9999px;
+}
+
+.m1 {
+	color: blue;
+}
+
+.m2 {
+	color: green;
+}
+
+.m3 {
+	color: red;
+}
+
+.m4 {
+	color: purple;
+}
+
+.m5 {
+	color: brown;
+}
+
+.m6 {
+	color: orange;
+}
+
+.untouched {
+	text-indent: -9999px;
+}
+
+.explored-sea {
+    background-image: url("/images/explored.png");
+}
+
+.exploded {
+    background-image: url("/images/exploded.png");
+	text-indent: -9999px;
+}
+
+.flagged {
+    background-image: url("/images/flagged.png");
+	text-indent: -9999px;
+}
+
+.disclosed-wrongly-flagged-mine {
+    background-image: url("/images/wrongly-flagged.png");
+	text-indent: -9999px;
+}
+
+.disclosed-mine {
+    background-image: url("/images/exposed.png");
+	text-indent: -9999px;
+}
