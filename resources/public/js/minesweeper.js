@@ -23,11 +23,15 @@ $.getJSON('/new/9/9/12', function(board) {
 							$('#' + square.coord).html(square.mines).removeClass().addClass(squareClasses(square))
 						})
 					});
-					$('#seconds').html('(' + board.seconds + ' secs)')
-					if (board.state == 'lost')
+					$('#status').html('(secs: ' + board.seconds + ', moves: ' + board['number-of-moves'] + ')')
+					if (board['board-state'] == 'lost') {
 						$('#message').html('Sorry, you blew yourself to smithereens :(');
-					else if (board.state == 'won')
+						$('.square').off();
+					}
+					else if (board['board-state'] == 'won') {
 						$('#message').html('CONGRATS!!!');
+						$('.square').off();
+					}
 				})
 			})
 		})
