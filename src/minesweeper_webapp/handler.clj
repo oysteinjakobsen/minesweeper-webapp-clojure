@@ -12,7 +12,7 @@
 (defn square->map
   "??????"
   [[coordinate state mines]]
-  {:coord coordinate :state state :mines mines})
+  {:coord coordinate :state state :mines (if (= state 'questioned) "?" mines)})
 
 (defn restructure-board-for-json
   "??????"
@@ -44,7 +44,7 @@
   (let [coordinate (keyword (:coordinate (:route-params request)))
         action (keyword (:action (:route-params request)))
         board (:board (:session request))
-        new-board (merge-boards board (do-move board coordinate action))]
+        new-board (do-move board coordinate action)]
     (create-board-response request new-board)))
 
 (defroutes app-routes

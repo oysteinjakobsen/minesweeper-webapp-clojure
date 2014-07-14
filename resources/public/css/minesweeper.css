@@ -6,6 +6,7 @@
 	font-weight: bold;
 	font-family: arial;
 	font-size: 20px;	
+	text-shadow: 2px 1px #888888;
     display: inline-block;
     background-image: url("/images/untouched.png");
 }
@@ -40,6 +41,10 @@
 
 .untouched {
 	text-indent: -9999px;
+}
+
+.questioned {
+	color: goldenrod;
 }
 
 .explored-sea {

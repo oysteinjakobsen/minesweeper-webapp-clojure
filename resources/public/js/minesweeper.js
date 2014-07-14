@@ -23,7 +23,7 @@ $.getJSON('/new/9/9/12', function(board) {
 							$('#' + square.coord).html(square.mines).removeClass().addClass(squareClasses(square))
 						})
 					});
-					$('#status').html('(secs: ' + board.seconds + ', moves: ' + board['number-of-moves'] + ')')
+					$('#status').html('(secs: ' + board.seconds + ', moves: ' + board['number-of-moves'] + ', remaining: ' + board.remaining + ')')
 					if (board['board-state'] == 'lost') {
 						$('#message').html('Sorry, you blew yourself to smithereens :(');
 						$('.square').off();
