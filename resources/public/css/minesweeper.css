@@ -5,10 +5,10 @@
 	line-height: 36px;
 	font-weight: bold;
 	font-family: arial;
-	font-size: 20px;	
+	font-size: 20px;
 	text-shadow: 2px 1px #888888;
-    display: inline-block;
-    background-image: url("/images/untouched.png");
+	display: inline-block;
+	background-image: url("/images/untouched.png");
 }
 
 .m0 {
@@ -48,25 +48,33 @@
 }
 
 .explored-sea {
-    background-image: url("/images/explored.png");
+	background-image: url("/images/explored.png");
 }
 
 .exploded {
-    background-image: url("/images/exploded.png");
+	background-image: url("/images/exploded.png");
 	text-indent: -9999px;
 }
 
 .flagged {
-    background-image: url("/images/flagged.png");
+	background-image: url("/images/flagged.png");
 	text-indent: -9999px;
 }
 
 .disclosed-wrongly-flagged-mine {
-    background-image: url("/images/wrongly-flagged.png");
+	background-image: url("/images/wrongly-flagged.png");
 	text-indent: -9999px;
 }
 
 .disclosed-mine {
-    background-image: url("/images/exposed.png");
+	background-image: url("/images/exposed.png");
 	text-indent: -9999px;
+}
+
+.lost {
+	color: red;
+}
+
+.won {
+	color: green;
 }
