@@ -24,12 +24,12 @@ $.getJSON('/new/9/9/12', function(board) {
 						})
 					});
 					$('#status').html('(secs: ' + board.seconds + ', moves: ' + board['number-of-moves'] + ', remaining: ' + board.remaining + ')')
-					if (board['board-state'] == 'lost') {
+					if (board['game-state'] == 'lost') {
 						$('#message').html('Sorry, you blew yourself to smithereens :(').addClass('lost');
 						$('.square').off();
 					}
-					else if (board['board-state'] == 'won') {
-						$('#message').html('CONGRATS!!!').addClass('won');
+					else if (board['game-state'] == 'won') {
+						$('#message').html('CONGRATS!!! - ' + board.points + ' points').addClass('won');
 						$('.square').off();
 					}
 				})
