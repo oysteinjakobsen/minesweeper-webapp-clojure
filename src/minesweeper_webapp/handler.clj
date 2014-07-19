@@ -10,16 +10,6 @@
             [ring.adapter.jetty :as jetty])
   (:gen-class))
 
-(defn square->map
-  "??????"
-  [[coordinate state mines]]
-  {:coord coordinate :state state :mines (if (= state 'questioned) "?" mines)})
-
-(defn restructure-board-for-json
-  "??????"
-  [board]
-  (assoc board :squares (map #(map square->map %) (:squares board))))
-
 (defn create-json-response
   [response]
   {:body (json/generate-string response)
@@ -40,9 +30,9 @@
 
 (defn- create-board-response
   "Creates a JSON REST response based on the given request and new board. Board is stored on the session."
-  [request board]
+  [request board updates-only?]
   (->
-    (restructure-board-for-json (restructure-board board))
+    (restructured-board board updates-only?)
     (create-json-response)
     (non-cached-response)
     (store-in-session request {:board board})))
@@ -52,14 +42,16 @@
   [{{:keys [width height number-of-mines]} :route-params :as request}]
   (create-board-response 
     request
-    (apply new-board (map read-string [width height number-of-mines]))))
+    (apply new-board (map read-string [width height number-of-mines]))
+    {:updates-only? false}))
 
 (defn- move
   "REST handler that performs the given action on the given coordinate and returns the updated board."
   [{{:keys [coordinate action]} :route-params {:keys [board]} :session :as request}]
   (create-board-response
     request
-    (apply do-move board (map keyword [coordinate action]))))
+    (apply do-move board (map keyword [coordinate action]))
+    {:updates-only? true}))
 
 (defn- get-hof
   "REST handler that returns Hall of Fame for given board size and number of mines."

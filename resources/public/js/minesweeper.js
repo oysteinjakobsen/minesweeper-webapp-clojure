@@ -1,11 +1,19 @@
 $.getJSON('/new/9/9/12', function(board) {
 	
+	function squareText(square) {
+		return square.mines || (square.state == "questioned" ? '?' : '&nbsp;')
+	}
+	
 	function squareClasses(square) {
-		return 'square m' + square.mines + ' ' + square.state
+		var classes = 'square ' + square.state;
+		if (!isNaN(squareText(square))) {
+			classes += ' m' + squareText(square)
+		}
+		return classes;
 	}
 	
 	function squareHtml(square) {
-		return '<span id="' + square.coord + '" class="' + squareClasses(square) + '">' + square.mines + '</span>'
+		return '<span id="' + square.id + '" class="' + squareClasses(square) + '">' + squareText(square) + '</span>'
 	}
 	
 	function action(event) {
@@ -16,11 +24,11 @@ $.getJSON('/new/9/9/12', function(board) {
 		$('#board').append('<div id="row' + rowkey + '">');
 		$.each(rowval, function (squarekey, square) {
 			$('#row' + rowkey).append(squareHtml(square));
-			$('#' + square.coord).mousedown(function(event) {
-				$.getJSON('/move/' + square.coord + '/' + action(event), function(board) {
+			$('#' + square.id).mousedown(function(event) {
+				$.getJSON('/move/' + square.id + '/' + action(event), function(board) {
 					$.each(board.squares, function(rowkey, rowval) {
 						$.each(rowval, function(squarekey, square) {
-							$('#' + square.coord).html(square.mines).removeClass().addClass(squareClasses(square))
+							$('#' + square.id).html(squareText(square)).removeClass().addClass(squareClasses(square))
 						})
 					});
 					$('#status').html('(secs: ' + board.seconds + ', moves: ' + board['number-of-moves'] + ', remaining: ' + board.remaining + ')')
