@@ -11,6 +11,20 @@
 	<h3><span id="status"><i>click any square to begin!</i></span></h3>
 	<h3 id="message">&nbsp;</h3>
 	<div id="board"></div>
+	<div id="hof" class="hidden">
+		<div id="hof-register-block" class="hidden">
+			<span>
+				<p>Type your nick and press 'Register' to get your place in Hall-of-Fame!</p>
+				<input id="nick" type="text" />
+				<button id="hof-register" type="button">Register</button>
+			</span>
+		</div>
+		<div id="hof-list-block" class="hidden">
+			<h4 id="rank"></h4>
+			<h3>Hall of Fame</h3>
+			<ul id="hof-list"></ul>
+		</div>
+	</div>
 	<div id="footer"><br />The sourcecode can be found on <a href="https://github.com/oysteinjakobsen/minesweeper-webapp-clojure">GitHub</a></div>
 	<script src="/js/minesweeper.js"></script>
 </body>

@@ -79,6 +79,10 @@
 	color: green;
 }
 
+.hidden {
+	display: none;
+}
+
 #footer {
 	font-style: italic;
 }

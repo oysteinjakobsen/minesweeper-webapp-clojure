@@ -7,6 +7,7 @@
             [compojure.route :as route]
             [cheshire.core :as json]
             [ring.util.response :as response]
+            [ring.middleware.json :as middleware]
             [ring.adapter.jetty :as jetty])
   (:gen-class))
 
@@ -33,6 +34,7 @@
   [request board updates-only?]
   (->
     (restructured-board board updates-only?)
+    (assoc :hof *use-hof*)
     (create-json-response)
     (non-cached-response)
     (store-in-session request {:board board})))
@@ -61,16 +63,29 @@
     (create-json-response)
     (non-cached-response)))
 
+(defn- post-result
+  "Adds the result to Hall-of-Fame. Nick is posted and board is taken from session."
+  [{body :body {:keys [board]} :session :as request}]
+  (let [nick (get body "nick")]
+	  (create-json-response
+	    (when (and
+	            (= (game-over? board) :won)
+	            (not (empty? nick)))
+	      (add-result! board nick)))))
+
 (defroutes app-routes
   (GET "/" [] (response/redirect "/index.html"))
   (GET "/new/:width/:height/:number-of-mines" request (create-new-board request))
   (GET "/move/:coordinate/:action" request (move request))
   (GET "/hof/:width/:height/:number-of-mines" request (get-hof request))
+  (POST "/result" request (post-result request))
   (route/resources "/")
   (route/not-found "Not Found"))
 
 (def app 
-  (handler/site app-routes))
+  (->
+    (handler/site app-routes)
+    (middleware/wrap-json-body)))
 
 (defn -main
   [& [port]]
