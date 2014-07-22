@@ -6,7 +6,8 @@
                  [compojure "1.1.6"]
                  [cheshire "4.0.3"]
                  [oysteinj/minesweeper "1.0.0-SNAPSHOT"]
-                 [ring/ring-jetty-adapter "1.3.0"]]
+                 [ring/ring-jetty-adapter "1.3.0"]
+                 [org.clojure/tools.cli "0.3.1"]]
   :plugins [[lein-ring "0.8.10"]]
   :local-repo "/dev/maven-repo"
   :ring {:handler minesweeper-webapp.handler/app}

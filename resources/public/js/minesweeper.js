@@ -39,30 +39,33 @@ $.getJSON('/new/9/9/12', function(board) {
 					else if (board['game-state'] == 'won') {
 						$('#message').html('CONGRATS!!! - ' + board.points + ' points').addClass('won');
 						$('.square').off();
-						$('#hof').removeClass('hidden');
-						$('#hof-register-block').removeClass('hidden');
-						$('#hof-register').click(function(event) {
-							$.ajax({
-							    type: "POST",
-							    url: "/result",
-							    data: JSON.stringify({nick: $('#nick').val()}),
-							    contentType: "application/json; charset=utf-8",
-							    dataType: "json",
-							    success: function(response){
-							    	$('#hof-register-block').addClass('hidden');
-							    	$('#hof-list-block').removeClass('hidden');
-							    	if (response) {
-							    		$('#rank').html('Your game ranks as number ' + response.rank)
-							    	}
-							    	$.getJSON('/hof/9/9/12', function(hof) {
-							    		$.each(hof, function(rowkey, rowval) {
-							    			$('#hof-list').append('<li>' + rowval.points + ' ' + rowval.nick + '</li>');
-							    		})
-							    	})
-							    }
-							});
-							$('#hof-register-block').html('<h4><i>Your application for fame and glory is being processed...</i></h4>')
-						})
+						if (board.hof) {
+							$('#hof').removeClass('hidden');
+							$('#hof-register-block').removeClass('hidden');
+							$('#nick').val(board.nick);
+							$('#hof-register').click(function(event) {
+								$.ajax({
+								    type: "POST",
+								    url: "/result",
+								    data: JSON.stringify({nick: $('#nick').val()}),
+								    contentType: "application/json; charset=utf-8",
+								    dataType: "json",
+								    success: function(response){
+								    	$('#hof-register-block').addClass('hidden');
+								    	$('#hof-list-block').removeClass('hidden');
+								    	if (response) {
+								    		$('#rank').html('Your game ranks as number ' + response.rank)
+								    	}
+								    	$.getJSON('/hof/9/9/12', function(hof) {
+								    		$.each(hof, function(rowkey, rowval) {
+								    			$('#hof-list').append('<li>' + rowval.points + ' ' + rowval.nick + '</li>');
+								    		})
+								    	})
+								    }
+								});
+								$('#hof-register-block').html('<h4><i>Your application for fame and glory is being processed...</i></h4>')
+							})
+						}
 					}
 				})
 			})
