@@ -8,21 +8,34 @@
 </head>
 <body oncontextmenu="return false;">
 	<h2>M I N E S W E E P E R</h2>
-	<h3><span id="status"><i>click any square to begin!</i></span></h3>
-	<h3 id="message">&nbsp;</h3>
-	<div id="board"></div>
-	<div id="hof" class="hidden">
-		<div id="hof-register-block" class="hidden">
-			<span>
-				<p>Type your nick and press 'Register' to get your place in Hall-of-Fame!</p>
-				<input id="nick" type="text" />
-				<button id="hof-register" type="button">Register</button>
-			</span>
-		</div>
-		<div id="hof-list-block" class="hidden">
-			<h4 id="rank"></h4>
-			<h3>Hall of Fame</h3>
-			<ul id="hof-list"></ul>
+	<div>
+		<span>Level: </span>
+		<select id="level">
+	  		<option value="9/9/12">Easy (9x9x12)</option>
+	  		<option value="16/16/40">Medium (16x16x40)</option>
+			<option value="26/16/90">Expert (26x16x40)</option>
+		</select>
+	<button id="start-game" type="button">Start new game</button>
+	</div>
+	<div id="game-block" class="hidden">
+		<h3><span id="status"></span></h3>
+		<h3 id="message"></h3>
+		<div id="board"></div>
+		<div id="hof" class="hidden">
+			<div id="hof-register-block" class="hidden">
+				<span>
+					<p>Type your nick and press 'Register' to get your place in Hall-of-Fame!</p>
+					<input id="nick" type="text" />
+					<button id="hof-register" type="button">Register</button>
+				</span>
+			</div>
+			<div id="hof-register-message" class="hidden"><h4><i>Your application for fame and glory is being processed...</i></h4></div>
+			<div id="hof-list-block" class="hidden">
+				<h4 id="rank"></h4>
+				<h3>Hall of Fame (Top 10)</h3>
+				<h4 id="hof-load-message" class="hidden"><i>loading...</i></h4>
+				<ul id="hof-list"></ul>
+			</div>
 		</div>
 	</div>
 	<div id="footer"><br />The sourcecode can be found on <a href="https://github.com/oysteinjakobsen/minesweeper-webapp-clojure">GitHub</a></div>
