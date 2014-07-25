@@ -66,6 +66,14 @@
     (create-json-response)
     (non-cached-response)))
 
+(defn- get-ranking
+  "REST handler that returns Hall of Fame for given board size and number of mines."
+  [{{:keys [width height number-of-mines]} :route-params}]
+  (->
+    (apply get-player-ranking (map read-string [width height number-of-mines])) 
+    (create-json-response)
+    (non-cached-response)))
+
 (defn- post-result
   "Adds the result to Hall-of-Fame. Nick is posted and board is taken from session."
   [{body :body {:keys [board]} :session :as request}]
@@ -83,6 +91,7 @@
   (GET "/new/:width/:height/:number-of-mines" request (create-new-board request))
   (GET "/move/:coordinate/:action" request (move request))
   (GET "/hof/:width/:height/:number-of-mines" request (get-hof request))
+  (GET "/ranking/:width/:height/:number-of-mines" request (get-ranking request))
   (POST "/result" request (post-result request))
   (route/resources "/")
   (route/not-found "Not Found"))

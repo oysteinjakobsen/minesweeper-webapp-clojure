@@ -11,6 +11,64 @@
 	background-image: url("/images/untouched.png");
 }
 
+.hof-block {
+	background-color: #ffffff;
+}
+
+.hof-table {
+	display: table;
+	padding: 10px;
+	background-color: #eeeeee;
+}
+
+.hof-table-heading {
+    text-align: center;
+    font-weight: bold;
+    font-size: larger;
+    padding-bottom: 5px;
+}
+
+.hof-entry {
+	display: table-row;
+}
+
+.hof-cell {
+	display: table-cell;
+	margin-left: 10px;
+}
+
+.hof-points {
+	text-align: right;
+}
+
+.hof-nick {
+	padding-left: 10px;
+}
+
+.ui-selectmenu-button span.ui-selectmenu-text {
+	line-height: normal;
+}
+
+.ui-selectmenu-button {
+	vertical-align: middle;
+}
+
+.ui-widget {
+	font-size: 1em;
+}
+
+select {
+	width: 220px;
+}
+
+.lost {
+	color: red;
+}
+
+.won {
+	color: green;
+}
+
 .m0 {
 	text-indent: -9999px;
 }
@@ -69,18 +127,6 @@
 .disclosed-mine {
 	background-image: url("/images/exposed.png");
 	text-indent: -9999px;
-}
-
-.lost {
-	color: red;
-}
-
-.won {
-	color: green;
-}
-
-.hidden {
-	display: none;
 }
 
 #footer {

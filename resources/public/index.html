@@ -3,42 +3,59 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Minesweeper</title>
+<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css" />
 <link rel="stylesheet" type="text/css" href="/css/minesweeper.css" />
-<script	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script	src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script	src="http://code.jquery.com/ui/1.11.0/jquery-ui.min.js"></script>
 </head>
 <body oncontextmenu="return false;">
+<div>
 	<h2>M I N E S W E E P E R</h2>
+	
 	<div>
-		<span>Level: </span>
 		<select id="level">
 	  		<option value="9/9/12">Easy (9x9x12)</option>
 	  		<option value="16/16/40">Medium (16x16x40)</option>
 			<option value="26/16/90">Expert (26x16x40)</option>
 		</select>
-	<button id="start-game" type="button">Start new game</button>
+		<button id="start-game" type="button">Start new game</button>
+		<button id="show-hof" type="button">Hall of Fame</button>
 	</div>
-	<div id="game-block" class="hidden">
+	
+	<div id="game-block">
 		<h3><span id="status"></span></h3>
+		<div id="game-progressbar" class="progressbar" style="width: 500px;"></div>
 		<h3 id="message"></h3>
 		<div id="board"></div>
-		<div id="hof" class="hidden">
-			<div id="hof-register-block" class="hidden">
-				<span>
-					<p>Type your nick and press 'Register' to get your place in Hall-of-Fame!</p>
-					<input id="nick" type="text" />
-					<button id="hof-register" type="button">Register</button>
-				</span>
-			</div>
-			<div id="hof-register-message" class="hidden"><h4><i>Your application for fame and glory is being processed...</i></h4></div>
-			<div id="hof-list-block" class="hidden">
-				<h4 id="rank"></h4>
-				<h3>Hall of Fame (Top 10)</h3>
-				<h4 id="hof-load-message" class="hidden"><i>loading...</i></h4>
-				<ul id="hof-list"></ul>
+	</div>
+
+	<div id="hof-register-block">
+		<span>
+			<label for="nick">Your nick:
+			<input name="nick" id="nick" type="text" />
+		</span>
+	</div>
+	
+	<div id="hof-list-block" title="Hall of Fame">
+		<div style="display: table;">
+			<div style="display: table-row;">
+				<div style="display: table-cell;">
+					<div class="hof-table-heading">Top Games</div>
+					<div id="hof-progressbar" class="progressbar"></div>
+					<div id="hof-list" class="hof-table">
+					</div>
+				</div>
+				<div style="display: table-cell; padding-left: 10px; align: center;">
+					<div class="hof-table-heading">Top Players</div>
+					<div id="ranking-progressbar" class="progressbar"></div>
+					<div id="ranking-list" class="hof-table"></div>
+				</div>
 			</div>
 		</div>
-	</div>
+	</div>				
+	
 	<div id="footer"><br />The sourcecode can be found on <a href="https://github.com/oysteinjakobsen/minesweeper-webapp-clojure">GitHub</a></div>
+	</div>
 	<script src="/js/minesweeper.js"></script>
 </body>
 </html>
