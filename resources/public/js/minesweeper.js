@@ -67,7 +67,7 @@ $(document).ready(function () {
 		$.getJSON('/new/'+$('#level').val(), function(board) {
 			
 			function squareText(square) {
-				return square.mines || (square.state == "questioned" ? '?' : '&nbsp;')
+				return square.mines || (square.state == 'questioned' ? '?' : '&nbsp;')
 			}
 			
 			function squareClasses(square) {
@@ -103,6 +103,30 @@ $(document).ready(function () {
 				});
 				$('#nick').val(nick)
 			}
+			
+			function doAction(square, action) {
+				$.getJSON('/move/' + square.id + '/' + action, function(board) {
+					$.each(board.squares, function(rowkey, rowval) {
+						$.each(rowval, function(squarekey, square) {
+							$('#' + square.id).html(squareText(square)).removeClass().addClass(squareClasses(square))
+						})
+					});
+					
+					$('#status').html('Secs: ' + board.seconds.toFixed(1) + ' - Moves: ' + board['number-of-moves'] + ' - Remaining: ' + board.remaining)
+					if (board['game-state'] == 'lost') {
+						$('#message').html('Sorry, you blew yourself to smithereens :(').addClass('lost');
+						$('.square').off()
+					}
+					else if (board['game-state'] == 'won') {
+						$('.square').off();
+						var message = 'You got ' + board.points + ' points';
+						$('#message').html('CONGRATS!!! ' + message).addClass('won');
+						if (board.hof) {
+							showRegisterDialog(message, board.points, board.nick)
+						}
+					}
+				})
+			}
 	
 			$('#game-progressbar').hide();
 			if (board.hof) {
@@ -114,27 +138,7 @@ $(document).ready(function () {
 				$.each(rowval, function (squarekey, square) {
 					$('#row' + rowkey).append(squareHtml(square));
 					$('#' + square.id).mousedown(function(event) {
-						$.getJSON('/move/' + square.id + '/' + action(event), function(board) {
-							$.each(board.squares, function(rowkey, rowval) {
-								$.each(rowval, function(squarekey, square) {
-									$('#' + square.id).html(squareText(square)).removeClass().addClass(squareClasses(square))
-								})
-							});
-							
-							$('#status').html('(secs: ' + board.seconds + ', moves: ' + board['number-of-moves'] + ', remaining: ' + board.remaining + ')')
-							if (board['game-state'] == 'lost') {
-								$('#message').html('Sorry, you blew yourself to smithereens :(').addClass('lost');
-								$('.square').off()
-							}
-							else if (board['game-state'] == 'won') {
-								$('.square').off();
-								var message = 'You got ' + board.points + ' points';
-								$('#message').html('CONGRATS!!! ' + message).addClass('won');
-								if (board.hof) {
-									showRegisterDialog(message, board.points, board.nick)
-								}
-							}
-						})
+						doAction(square, action(event))
 					})
 				})
 			})
