@@ -3,6 +3,7 @@
   (:use minesweeper.core)
   (:use minesweeper.util)
   (:use minesweeper.hof)
+  (:use minesweeper.analysis)
   (:require [clojure.string :as string]
             [compojure.handler :as handler]
             [compojure.route :as route]
@@ -81,10 +82,22 @@
     (->
       (when (and
                (= (game-over? board) :won)
-               (not (empty? nick)))
+               (not (empty? nick))
+               (not (:replay board)))
          (add-result! board nick))
       (create-json-response)
       (store-in-session request {:nick nick}))))
+
+(defn- replay-game
+  "Returns the given game for replay."
+  [{{:keys [id]} :route-params :as request}]
+  (let [game (get-game (read-string id))
+        {:keys [board moves]} (prepare-board-for-replay (read-string (get game "board")))
+        response {:board (assoc (restructured-board board) :hof @use-hof), :moves moves}]
+    (->
+      response
+      (create-json-response)
+      (store-in-session request {:board board}))))
 
 (defroutes app-routes
   (GET "/" [] (response/redirect "/index.html"))
@@ -92,6 +105,7 @@
   (GET "/move/:coordinate/:action" request (move request))
   (GET "/hof/:width/:height/:number-of-mines" request (get-hof request))
   (GET "/ranking/:width/:height/:number-of-mines" request (get-ranking request))
+  (GET "/replay/:id" request (replay-game request))
   (POST "/result" request (post-result request))
   (route/resources "/")
   (route/not-found "Not Found"))

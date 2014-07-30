@@ -61,6 +61,13 @@ select {
 	width: 220px;
 }
 
+.hof-footer {
+	text-align: center;
+	font-size: smaller;
+	font-style: italic;
+	margin-top: 3px;
+}
+
 .lost {
 	color: red;
 }
