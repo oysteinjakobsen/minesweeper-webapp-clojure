@@ -21,7 +21,11 @@ $(document).ready(function () {
 	    		});
 	    		$('#hof-list .hof-entry').click(function() {
 	    			showReplayDialog(this.id)
-	    		})
+	    		}).hover(function() {
+	    	        $(this).addClass('hof-entry-selected');
+	    	    },function() {
+	    	        $(this).removeClass('hof-entry-selected');
+	    	    })
 			} else {
 				$('#hof-list').append("no data")
 			}
@@ -154,7 +158,7 @@ $(document).ready(function () {
 			}
 			else if (board['game-state'] == 'won') {
 				$('.square').off();
-				var message = 'You got ' + board.points + ' points';
+				var message = board.replay ? 'Hope you enjoyed the show' : 'You got ' + board.points + ' points';
 				$('#message').html('CONGRATS!!! ' + message).addClass('won');
 				if (board.hof && !board.replay) {
 					showRegisterDialog(message, board.points, board.nick)
@@ -181,7 +185,11 @@ $(document).ready(function () {
 			$('#show-hof').show()
 		}
 		$.each(board.squares, function(rowkey, rowval) {
-			$('#status').html('<i>click any square to begin!</i>');
+			if (board.replay) {
+				$('#status').html('<i>preparing replay...</i>')
+			} else {
+				$('#status').html('<i>click any square to begin!</i>')
+			}
 			$('#board').append('<div id="row' + rowkey + '">');
 			$.each(rowval, function (squarekey, square) {
 				$('#row' + rowkey).append(squareHtml(square));

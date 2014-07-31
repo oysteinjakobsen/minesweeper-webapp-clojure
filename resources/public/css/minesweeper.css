@@ -32,6 +32,10 @@
 	display: table-row;
 }
 
+.hof-entry-selected {
+	background-color: #cccccc;
+}
+
 .hof-cell {
 	display: table-cell;
 	margin-left: 10px;
