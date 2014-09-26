@@ -27,4 +27,8 @@ java -jar target/minesweeper-webapp-1.0.0-SNAPSHOT-standalone.jar
 
 Add **--help** for details about possible command line parameters.
 
+## Hall of Fame
+
 Note that if you have Neo4j installed, you can enable the Hall-of-Fame functionality with the **--hof** parameter.
+If Neo4j isn't running on localhost:7474 then you can supply the url with the **--neo4j** parameter.
+If Neo4j requires basic authentication this can be provided by **NEO4J_LOGIN** and **NEO4J_PASSWORD** environment variables.
