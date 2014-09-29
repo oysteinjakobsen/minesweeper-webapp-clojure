@@ -32,3 +32,8 @@ Add **--help** for details about possible command line parameters.
 Note that if you have Neo4j installed, you can enable the Hall-of-Fame functionality with the **--hof** parameter.
 If Neo4j isn't running on localhost:7474 then you can supply the url with the **--neo4j** parameter.
 If Neo4j requires basic authentication this can be provided by **NEO4J_LOGIN** and **NEO4J_PASSWORD** environment variables.
+
+## DEMO
+
+You can try out the game at http://minesweeper.falljakobsen.no/. It runs on a Raspberry Pi, so don't expect too much ;)
+The Neo4j database runs on http://www.graphenedb.com.
